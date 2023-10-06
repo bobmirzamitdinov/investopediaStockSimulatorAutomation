@@ -1,21 +1,17 @@
 package stepDefinitions;
 
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
+import io.cucumber.junit.CucumberOptions;
+import io.cucumber.junit.Cucumber;
 
+@RunWith(Cucumber.class)
+@CucumberOptions(features="src/test/resources/features/login.feature",
+        glue= {"stepDefinitions"},
+        monochrome= true,
+        plugin = {"pretty", "junit:target/JUnitReports/report.xml",
+                "json:target/JSONReports/report.json",
+                "html:target/HtmlReports"}
+)
 public class testRunner {
-    @RunWith(Cucumber.class)
-    @CucumberOptions(features="src/test/resources/features",
-            glue={"stepDefinitions"})
-    public class TestRunner {
-    }
 
-    monochrome = true
-
-    plugin = { "pretty", "html:target/reports"}
-    plugin = { "pretty", "json:target/reports/cucumber.json"}
-    plugin = { "pretty",  "junit:target/reports/cucumber.xml"}
-
-    tags="@smoketest"
 }
