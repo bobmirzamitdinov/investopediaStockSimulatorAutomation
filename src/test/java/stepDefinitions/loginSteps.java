@@ -31,8 +31,8 @@ public class loginSteps {
         System.getProperty("webdriver.chrome.driver",projectPath + "/src/test/resources/drivers/chromedriver");
         driver = new ChromeDriver();
 
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 
         driver.manage().window().maximize();
     }
@@ -58,5 +58,4 @@ public class loginSteps {
         driver.close();
         driver.quit();
     }
-
 }
