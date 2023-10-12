@@ -55,7 +55,7 @@ public class loginSteps {
     @Then("user is navigated to the portfolio page")
     public void user_is_navigated_to_the_portfolio_page() {
         driver.getPageSource().contains("OVERVIEW");
-        driver.close();
-        driver.quit();
+//        driver.close();
+//        driver.quit();
     }
 }
