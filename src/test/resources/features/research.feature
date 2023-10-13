@@ -1,7 +1,7 @@
-Feature: Test research page functionalities
-  Scenario: Search for APPL company and verify results
-    Given I am on the Investopedia Simulator website
-    When I log in with valid credentials
-    Then I navigate to the Research page
-    And I search for the company "APPL"
-    And I verify that the results contain the keyword "More"
+Feature: Test Research Page functionalities
+  Scenario: Verify Symbol Search in Research Page
+    Given user is on the investopedia simulator website
+    And user logs in with valid credentials
+    When user navigates to the Research page
+    And user searches for the company
+    Then user verifies that the results contain company

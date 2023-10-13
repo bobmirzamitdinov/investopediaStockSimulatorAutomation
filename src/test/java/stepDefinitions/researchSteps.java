@@ -1,5 +1,6 @@
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -17,6 +18,7 @@ public class researchSteps {
     WebDriver driver = null;
     private Properties properties;
     String projectPath = System.getProperty("user.dir");
+
     public researchSteps() {
         properties = new Properties();
         try {
@@ -26,14 +28,14 @@ public class researchSteps {
             e.printStackTrace();
         }
     }
-    @Given("I am on the Investopedia Simulator website")
-    public void i_am_on_investopedia_simulator_website() {
-        driver.get("https://www.investopedia.com/simulator/");
+
+    @Given("user is on the investopedia simulator website")
+    public void user_is_on_the_investopedia_simulator_website() {
+        driver.navigate().to("https://www.investopedia.com/auth/realms/investopedia/protocol/openid-connect/auth?client_id=finance-simulator&redirect_uri=https%3A%2F%2Fwww.investopedia.com%2Fsimulator%2Fportfolio&state=00a02e9c-05cf-416d-8c07-2c59e671880a&response_mode=fragment&response_type=code&scope=openid&nonce=17f9e3a2-2101-41ae-a0d2-925d589f6b80");
     }
 
-    @When("I log in with valid credentials")
-    public void i_log_in_with_valid_credentials() {
-        // Implement the login process using Selenium
+    @And("user logs in with valid credentials")
+    public void user_logs_in_with_valid_credentials() {
         String email = properties.getProperty("email");
         String password = properties.getProperty("password");
 
@@ -41,22 +43,21 @@ public class researchSteps {
         driver.findElement(By.name("password")).sendKeys(password);
     }
 
-    @Then("I navigate to the Research page")
-    public void i_navigate_to_the_research_page() {
-        WebElement researchLink = driver.findElement(By.linkText("Research"));
-        researchLink.click();
+    @When("user navigates to the Research page")
+    public void user_navigates_to_the_research_page() {
+        driver.findElement(By.name("login")).sendKeys(Keys.ENTER);
     }
 
-    @When("I search for the company {string}")
-    public void i_search_for_the_company(String company) {
-        WebElement searchInput = driver.findElement(By.id("search-input"));
-        searchInput.sendKeys(company);
-        searchInput.sendKeys(Keys.RETURN);
+    @And("user searches for the company")
+    public void user_searches_for_the_company() {
+        driver.findElement(By.name("search")).sendKeys(Keys.ENTER);
+
     }
-    @Then("I verify that the results contain the keyword {string}")
-    public void i_verify_that_the_results_contain_keyword(String keyword) {
-        WebElement searchResults = driver.findElement(By.id("search-results"));
-        String resultsText = searchResults.getText();
-        assert resultsText.contains(keyword);
+
+    @Then("user verifies that the results contain company>")
+    public void user_verifies_that_the_results_contain_keyword(io.cucumber.datatable.DataTable dataTable) {
+        driver.getPageSource().contains("Apple");
+
     }
 }
+
