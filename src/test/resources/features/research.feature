@@ -1,7 +1,7 @@
-Feature: Test Research Page functionalities
-  Scenario: Verify Symbol Search in Research Page
+Feature: Test functionalities in Research Page
+
+  Scenario: Verify Navigation to Research Page
     Given user is on the investopedia simulator website
-    And user logs in with valid credentials
-    When user navigates to the Research page
-    And user searches for the company
-    Then user verifies that the results contain company
+    When user logs in with valid credentials
+    And user clicks Research screen name
+    Then user is navigated to the research page

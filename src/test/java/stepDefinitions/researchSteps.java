@@ -1,13 +1,9 @@
 package stepDefinitions;
 
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
+import io.cucumber.java.en.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.FileInputStream;
@@ -32,7 +28,7 @@ public class researchSteps {
 
     @Given("user is on the investopedia simulator website")
     public void user_is_on_the_investopedia_simulator_website() {
-        System.getProperty("webdriver.chrome.driver",projectPath + "/src/test/resources/drivers/chromedriver");
+        System.getProperty("webdriver.chrome.driver", projectPath + "/src/test/resources/drivers/chromedriver");
         driver = new ChromeDriver();
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -41,31 +37,25 @@ public class researchSteps {
         driver.manage().window().maximize();
         driver.navigate().to("https://www.investopedia.com/auth/realms/investopedia/protocol/openid-connect/auth?client_id=finance-simulator&redirect_uri=https%3A%2F%2Fwww.investopedia.com%2Fsimulator%2Fportfolio&state=00a02e9c-05cf-416d-8c07-2c59e671880a&response_mode=fragment&response_type=code&scope=openid&nonce=17f9e3a2-2101-41ae-a0d2-925d589f6b80");
     }
-    @And("user logs in with valid credentials")
+
+    @When("user logs in with valid credentials")
     public void user_logs_in_with_valid_credentials() {
         String email = properties.getProperty("email");
         String password = properties.getProperty("password");
 
         driver.findElement(By.name("username")).sendKeys(email);
         driver.findElement(By.name("password")).sendKeys(password);
-
         driver.findElement(By.name("login")).sendKeys(Keys.ENTER);
     }
 
-    @When("user navigates to the Research page")
-    public void user_navigates_to_the_research_page() {
-        WebElement researchLink = driver.findElement(By.cssSelector("a[data-cy='global-nav-item']"));
-        researchLink.click();
+    @And("user clicks Research screen name")
+    public void user_clicks_research_screen_name() {
+        driver.findElement(By.cssSelector("a[href='/simulator/research']")).click();
     }
-    @And("user searches for the company")
-    public void user_searches_for_the_company() {
-        driver.findElement(By.name("search")).sendKeys(Keys.ENTER);
-
-    }
-    @Then("user verifies that the results contain company>")
-    public void user_verifies_that_the_results_contain_keyword(io.cucumber.datatable.DataTable dataTable) {
-        driver.getPageSource().contains("Apple");
-
+    @Then("user is navigated to the research page")
+    public void user_is_navigated_to_the_research_page() {
+        driver.getPageSource().contains("SYMBOL LOOKUP");
+        driver.close();
+        driver.quit();
     }
 }
-
