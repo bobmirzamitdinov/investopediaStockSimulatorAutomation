@@ -1,3 +1,4 @@
+@regression
 Feature: Test functionalities in Research Page
 
   Scenario: Verify Navigation to Research Page
